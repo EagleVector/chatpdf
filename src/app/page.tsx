@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { auth, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { LogInIcon } from 'lucide-react'
+import FileUpload from "@/components/FileUpload";
 
 export default async function Home() {
   const { userId } = await auth()
@@ -25,7 +26,7 @@ export default async function Home() {
 
           <div className="w-full mt-4">
             {
-              isAuth ? (<h1>Upload File</h1>) : (
+              isAuth ? <FileUpload /> : (
                 <Link href='/sign-in'>
                   <Button>
                     Login to get Started!
