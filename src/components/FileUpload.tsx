@@ -1,6 +1,6 @@
 "use client"
 
-import { uploadToS3 } from '@/lib/db/s3';
+import { uploadToS3 } from '@/lib/s3';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { Inbox, Loader2 } from 'lucide-react';
@@ -47,7 +47,7 @@ const FileUpload = () => {
         mutate(data, {
           onSuccess: (data) => {
             console.log(data);
-            toast.success(data.message)
+            // toast.success(data.message)
           },
           onError: (err) => {
             toast.error("Error creating chat")
