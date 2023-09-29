@@ -7,6 +7,7 @@ import {
   RecursiveCharacterTextSplitter,
 } from "@pinecone-database/doc-splitter";
 import { getEmbeddings } from "./embeddings";
+import { convertToAscii } from "./utils";
 
 export const getPineconeClient = () => {
   return new Pinecone({
@@ -42,9 +43,10 @@ export async function loadS3IntoPinecone(fileKey: string) {
   // 4. upload to pinecone
   const client = await getPineconeClient();
   const pineconeIndex = await client.index("chatpdf");
+  const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
 
   console.log("inserting vectors into pinecone");
-  await pineconeIndex.upsert(vectors);
+  await namespace.upsert(vectors);
 
   return documents[0];
 }
