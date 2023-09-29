@@ -2,19 +2,25 @@
 
 import { DrizzleChat } from '@/lib/db/schema'
 import { cn } from '@/lib/utils'
+import axios from 'axios'
 import { MessageCircle, PlusCircle } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
+import SubscriptionButton from './SubscriptionButton'
 import { Button } from './ui/button'
 
 type Props = {
-  chats: DrizzleChat[],
-  chatId: number
-}
+  chats: DrizzleChat[];
+  chatId: number;
+  isPro: boolean
+};
 
 
 
-const ChatSidebar = ({chats, chatId}: Props) => {
+
+const ChatSidebar = ({ chats, chatId, isPro }: Props) => {
+  const [loading, setLoading] = React.useState(false);
+
   return (
     <div className='w-full h-screen p-4 text-gray-200 bg-gray-900'>
       <Link href='/'>
@@ -42,12 +48,8 @@ const ChatSidebar = ({chats, chatId}: Props) => {
 
         ))}
       </div>
-      <div className='absolute bottom-4 left-4'>
-        <div className='flex items-center gap-2 text-sm text-slate-200 flex-wrap'>
-          <Link href='/'>Home</Link>
-          <Link href='/'>Source</Link>
-          {/* Stripe Button */}
-        </div>
+      <div className='absolute bottom-4 left-4 text-green-800'>
+        <SubscriptionButton isPro={isPro} />
       </div>
     </div>
   )
